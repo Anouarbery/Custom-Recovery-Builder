@@ -11,6 +11,11 @@ on:
         description: 'Device Tree Branch, eg. twrp-12.1'
         required: true
         default: 'twrp-12.1'
+        type: choice
+        options:
+          - twrp-12.1
+          - twrp-14
+          - twrp-14.1
       DEVICE_PATH:
         description: 'Device Path, eg. device/vendor/codename'
         required: true
@@ -67,7 +72,7 @@ jobs:
         cd android-recovery
         git config --global user.name "${{ github.actor }}"
         git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
-        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b twrp-12.1
+        repo init --depth=1 -u https://github.com/minimal-manifest-twrp/platform_manifest_twrp_aosp.git -b ${{ inputs.DEVICE_BRANCH }}
         sed -i '/<remove-project name="platform\/external\/gflags"  \/>/d' .repo/manifests/remove-minimal.xml
         
     - name: Repo Sync
@@ -85,7 +90,7 @@ jobs:
         cd android-recovery
         source build/envsetup.sh
         export ALLOW_MISSING_DEPENDENCIES=true
-        lunch ${{ inputs.DEVICE_MAKEFILE }}-eng && make clean && make vendorbootimage
+        lunch ${{ inputs.DEVICE_MAKEFILE }}-eng && make clean && mka vendorbootimage
       
     - name: Set Build Date # Output will be use in Release
       run: |
