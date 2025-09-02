@@ -6,11 +6,11 @@ on:
       DEVICE_TREE:
         description: 'Device Tree URL eg. https://github.com/<owner>/<repo>'
         required: true
-        default: 'https://github.com/Lyinceer/twrp_device_samsung_a55x.git'
+        default: 'https://github.com/Anouarbery/android_device_samsung_a56x.git'
       DEVICE_BRANCH:
         description: 'Device Tree Branch, eg. twrp-12.1'
         required: true
-        default: 'twrp-12.1'
+        default: 'master'
         type: choice
         options:
           - twrp-12.1
@@ -19,11 +19,11 @@ on:
       DEVICE_PATH:
         description: 'Device Path, eg. device/vendor/codename'
         required: true
-        default: 'device/samsung/a55x'
+        default: 'device/samsung/a56x'
       DEVICE_MAKEFILE:
         description: 'Device Makefile, eg. twrp_codename'
         required: true
-        default: 'twrp_a55x'
+        default: 'twrp_a56x'
         
 jobs:
   build:
@@ -111,7 +111,7 @@ jobs:
         mv vendor_boot.img workspace/stock/stock-vb.img
     - name: Make a copy of vendor_boot.img (twrp)
       run: |
-        cp android-recovery/out/target/product/a55x/vendor_boot.img workspace/twrp/twrp-vb.img
+        cp android-recovery/out/target/product/a56x/vendor_boot.img workspace/twrp/twrp-vb.img
     - name: Unpack vendor_boot.img (stock)
       run: |
         cd ${GITHUB_WORKSPACE}/workspace/stock/unpack
@@ -140,7 +140,7 @@ jobs:
         body: |
           # Flashable TWRP for a56x
           ## Notes
-          This twrp-vendor_boot.tar can be flash via ODIN software. This was build using a55x twrp's vendor_boot.img and stock vendor_boot.img, by replacing stock's vendor_ramdisk_recovery.cpio using vendor_ramdisk_recovery.cpio from TWRP build.
+          This twrp-vendor_boot.tar can be flash via ODIN software. This was build using a56x twrp's vendor_boot.img and stock vendor_boot.img, by replacing stock's vendor_ramdisk_recovery.cpio using vendor_ramdisk_recovery.cpio from TWRP build.
           ## What's New?
           - 
           ## Bugs and Errors
